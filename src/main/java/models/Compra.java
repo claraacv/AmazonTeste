@@ -11,4 +11,9 @@ public class Compra {
     public boolean validarFreteGratis() {
         return true;
     }
+
+
+    public int finalizarVenda() {
+        return 0;
+    }
 }
