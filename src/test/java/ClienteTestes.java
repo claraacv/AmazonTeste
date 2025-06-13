@@ -10,7 +10,7 @@ public class ClienteTestes {
     @Test
     public void emailTelefoneInvalidoAbaixo(){
         //arrange
-        Cliente cliente = new Cliente("47999870867");
+        Cliente cliente = new Cliente("4799987086");
         ClienteController controller = new ClienteController();
         String emailTelefone = cliente.getEmailTelefone();
 
@@ -24,7 +24,7 @@ public class ClienteTestes {
     @Test
     public void emailTelefoneValido(){
         //arrange
-        Cliente cliente = new Cliente("479998708679");
+        Cliente cliente = new Cliente("47999870867");
         ClienteController controller = new ClienteController();
         String emailTelefone = cliente.getEmailTelefone();
 
@@ -38,7 +38,7 @@ public class ClienteTestes {
     @Test
     public void emailTelefoneInvalidoAcima(){
         //arrange
-        Cliente cliente = new Cliente("4799987086791");
+        Cliente cliente = new Cliente("479998708679");
         ClienteController controller = new ClienteController();
         String emailTelefone = cliente.getEmailTelefone();
 
