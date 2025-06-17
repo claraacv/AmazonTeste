@@ -1,14 +1,24 @@
 package models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name="clientes_amazon")
 public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String emailTelefone;
     private String nome;
     private String senha;
     private String segundaSenha;
 
-    public Cliente(String emailTelefone){
+    public Cliente(String emailTelefone) {
         this.emailTelefone = emailTelefone;
+    }
+
+    public Cliente() {
+
     }
 
     public void setNome(String nome){
@@ -25,5 +35,21 @@ public class Cliente {
 
     public String getEmailTelefone(){
         return emailTelefone;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public String getSenha(){
+        return senha;
+    }
+
+    public String getSegundaSenha(){
+        return segundaSenha;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -50,7 +50,7 @@ public class ClienteTestes {
     }
 
     @Test
-    public void salvarClienteV(){
+    public void salvarCliente(){
         //arrange
         Cliente cliente = new Cliente("udesc@gmail.com");
         cliente.setNome("Udesc");
@@ -70,7 +70,7 @@ public class ClienteTestes {
     }
 
     @Test
-    public void naoSalvarClienteV(){
+    public void naoSalvarCliente(){
         //arrange
         Cliente cliente = new Cliente("udesc@gmail.com");
         cliente.setSenha("udesc123");
