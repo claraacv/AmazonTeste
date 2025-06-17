@@ -8,7 +8,6 @@ import java.util.List;
 public class ClienteDao extends dao{
 
     public boolean salvar(Cliente c){
-        EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
             em.persist(c);
@@ -23,7 +22,10 @@ public class ClienteDao extends dao{
     }
 
     public List<Cliente> listar(){
-        EntityManager em = emf.createEntityManager();
         return em.createQuery("SELECT c FROM Cliente c", Cliente.class).getResultList();
+    }
+
+    public Cliente getClienteById(long id){
+        return em.find(Cliente.class, id);
     }
 }

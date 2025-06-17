@@ -53,8 +53,8 @@ public class ClienteController {
         return dao.salvar(cliente);
     }
 
-    public Cliente getClienteById(int i) {
-        return new Cliente("udesc@gmail.com");
+    public Cliente getClienteById(long id) {
+        return dao.getClienteById(id);
     }
 
     public List<Cliente> listar() {

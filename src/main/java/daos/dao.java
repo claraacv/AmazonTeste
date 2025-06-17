@@ -6,4 +6,5 @@ import jakarta.persistence.Persistence;
 
 public class dao {
     protected EntityManagerFactory emf = Persistence.createEntityManagerFactory("AmazonPU");
+    protected EntityManager em = emf.createEntityManager();
 }

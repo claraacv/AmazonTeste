@@ -18,7 +18,7 @@ public class ClienteTestes {
         boolean resultado = controller.validarEmailTelefone(emailTelefone);
 
         //assert
-        assertFalse(resultado);
+        assertFalse("Telefone inválido",resultado);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class ClienteTestes {
         boolean resultado = controller.validarEmailTelefone(emailTelefone);
 
         //assert
-        assertTrue(resultado);
+        assertTrue("Telefone válido",resultado);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ClienteTestes {
         boolean resultado = controller.validarEmailTelefone(emailTelefone);
 
         //assert
-        assertFalse(resultado);
+        assertFalse("Telefone inválido",resultado);
     }
 
     @Test
@@ -62,10 +62,13 @@ public class ClienteTestes {
         //act
         boolean resultado = controller.salvar(cliente);
         List<Cliente> clientes = controller.listar();
+        Long id = cliente.getId();
 
         //assert
-        assertTrue(resultado);
-        //ver um assert pra verificar o valor que retornou da lista
+        assertEquals(cliente, controller.getClienteById(id));
+
+        assertTrue("Cliente salvo",resultado);
+
         assertEquals(1,clientes.size());
     }
 
@@ -83,7 +86,9 @@ public class ClienteTestes {
         List<Cliente> clientes = controller.listar();
 
         //assert
-        assertFalse(resultado);
+        assertFalse("Cliente não salvo", resultado);
+
+        assertNull(cliente.getId());
         //ver um assert pra verificar o valor que retornou da lista
         assertEquals(1,clientes.size());
     }
