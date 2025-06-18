@@ -52,4 +52,15 @@ public class Cliente {
     public Long getId() {
         return id;
     }
+
+    public boolean validarLogin(String email, String senha){
+        if (email == null || !email.contains("@")){
+            return false;
+        }
+
+        if (senha == null || senha.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 }

@@ -92,4 +92,30 @@ public class ClienteTestes {
         //ver um assert pra verificar o valor que retornou da lista
         assertEquals(1,clientes.size());
     }
+
+    @Test
+    public void validarLoginComSucesso(){
+
+        //Arrange
+        Cliente cliente = new Cliente();
+
+        //Act
+        boolean resultado = cliente.validarLogin("thiago@gmail.com", "senhaCorreta123");
+
+        // Assert
+        assertTrue("Login realizado com sucesso!", resultado);
+    }
+
+    @Test
+    public void validarLoginComEmailInvalido(){
+
+        //Arrange
+        Cliente cliente = new Cliente();
+
+        //Act
+        boolean resultado = cliente.validarLogin("thiagogmail.com", "senhaCorreta123");
+
+        // Assert
+        assertFalse("Login realizado com sucesso!", resultado);
+    }
 }
