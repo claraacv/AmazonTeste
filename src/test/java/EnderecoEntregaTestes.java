@@ -14,7 +14,7 @@ public class EnderecoEntregaTestes {
         boolean resultado = enderecoEntrega.validarEnderecoEntrega();
 
         //Assert
-        assertTrue(resultado);
+        assertTrue("Endereço Válido", resultado);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class EnderecoEntregaTestes {
         boolean resultado = enderecoEntrega.validarEnderecoEntrega();
 
         //Assert
-        assertFalse(resultado);
+        assertFalse("Endereço Inválido", resultado);
     }
 
 }
