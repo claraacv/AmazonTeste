@@ -1,5 +1,6 @@
 package models;
 
+import daos.ClienteDao;
 import jakarta.persistence.*;
 
 @Entity
