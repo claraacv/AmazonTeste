@@ -1,5 +1,7 @@
 import controllers.ClienteController;
+import controllers.ClienteControllerMock;
 import mocks.ClienteDaoMock;
+import mocks.ClienteDaoMockAdapter;
 import models.Cliente;
 import org.junit.Test;
 
@@ -122,34 +124,28 @@ public class ClienteTestes {
     }
 
     @Test
-    public void deveRecuperarSenhaComTokenValido(){
+    public void deveRecuperarSenhaComTokenValido() {
+        ClienteControllerMock controller = new ClienteControllerMock(new ClienteDaoMock());
 
-        //Arrange
-        ClienteController controller = new ClienteController(new ClienteDaoMock());
         String email = "thiago@gmail.com";
         LocalDate dataSolicitacao = LocalDate.of(2025, 5, 25);
         LocalDate dataRecuperacao = LocalDate.of(2025, 5, 25);
 
-        //Act
         String mensagem = controller.recuperarSenha(email, dataSolicitacao, dataRecuperacao);
 
-        //Assert
         assertEquals("Senha recuperada com sucesso.", mensagem);
     }
 
     @Test
     public void naoDeveRecuperarSenhaComTokenExpirado() {
+        ClienteControllerMock controller = new ClienteControllerMock(new ClienteDaoMock());
 
-        //Arrange
-        ClienteController controller = new ClienteController(new ClienteDaoMock());
         String email = "thiago@gmail.com";
         LocalDate dataSolicitacao = LocalDate.of(2025, 5, 25);
         LocalDate dataRecuperacao = LocalDate.of(2025, 5, 27);
 
-        //Act
         String mensagem = controller.recuperarSenha(email, dataSolicitacao, dataRecuperacao);
 
-        //Assert
         assertEquals("Recuperação de senha expirada", mensagem);
     }
 }
