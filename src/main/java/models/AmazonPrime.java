@@ -1,9 +1,30 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import enums.Planos;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-public class AmazonPrime {
+@Entity
+@Table
+public class AmazonPrime implements Serializable {
+    private Planos plano;
+    private double valor;
+    @Id
+    private Long id;
+
     public AmazonPrime(String s, Cliente cliente) {
+    }
+
+    public AmazonPrime() {
+
+    }
+
+    public AmazonPrime(Planos plano, double valor){
+        this.plano = plano;
+        this.valor = valor;
     }
 
     public void cancelar(String s) {
@@ -41,5 +62,13 @@ public class AmazonPrime {
         else{
             return "Pagamento não Autorizado! Verifique os dados de seu cartão.";
         }
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

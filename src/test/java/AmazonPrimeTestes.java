@@ -1,25 +1,28 @@
 import controllers.ClienteController;
+import enums.Planos;
 import models.*;
 import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class AmazonPrimeTestes {
     @Test
     public void compraFreteGratis(){
         //arrange
-        ClienteController controllerCliente = new ClienteController();
-        Cliente cliente = controllerCliente.getClienteById(1);
-        Compra compra = new Compra(cliente, LocalDate.now());
-        Produto produto = new Produto("Mochila", 150.99, 50);
-        ItemCompra item = new ItemCompra(produto, 1);
-        AmazonPrime amazon = new AmazonPrime("22/05/2025", cliente);
+        Cliente cliente = new Cliente("clara@gmail.com");
+        cliente.setNome("Ana Clara");
+        cliente.setSenha("123");
+        AmazonPrime amazon = new AmazonPrime(Planos.MENSAL, 24.90);
 
-        //arrange
+        cliente.setAmazonPrime(amazon);
+        cliente.inscreverPrime(LocalDate.parse("2025-05-22"));
+
+        Compra compra = new Compra(cliente, LocalDate.now());
+
+        //act
         boolean resultado = compra.validarFreteGratis();
 
         //assert
@@ -29,19 +32,22 @@ public class AmazonPrimeTestes {
     @Test
     public void compraSemFreteGratis(){
         //arrange
-        ClienteController controllerCliente = new ClienteController();
-        Cliente cliente = controllerCliente.getClienteById(1);
+        Cliente cliente = new Cliente("clara@gmail.com");
+        cliente.setNome("Ana Clara");
+        cliente.setSenha("123");
+        AmazonPrime amazon = new AmazonPrime(Planos.MENSAL, 24.90);
+
+        cliente.setAmazonPrime(amazon);
+        cliente.inscreverPrime(LocalDate.parse("2025-03-22"));
+        cliente.cancelarPrime(LocalDate.parse("2025-05-22"));
+
         Compra compra = new Compra(cliente, LocalDate.now());
-        Produto produto = new Produto("Mochila", 150.99, 50);
-        ItemCompra item = new ItemCompra(produto, 1);
-        AmazonPrime amazon = new AmazonPrime("22/03/2025", cliente);
 
         //act
-        amazon.cancelar("22/05/2025");
         boolean resultado = compra.validarFreteGratis();
 
         //assert
-        assertTrue(resultado);
+        assertFalse(resultado);
     }
 
     @Test

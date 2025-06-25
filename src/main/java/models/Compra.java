@@ -33,7 +33,14 @@ public class Compra {
     }
 
     public boolean validarFreteGratis() {
-        return true;
+        if(cliente.getAmazonPrime() != null){
+            if(cliente.getDataInscricaoPrime().isBefore(data)){
+                if(cliente.getDataCancelamentoPrime()== null || cliente.getDataCancelamentoPrime().isAfter(data)|| cliente.getDataCancelamentoPrime().isEqual(data)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

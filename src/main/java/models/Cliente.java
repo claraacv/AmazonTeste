@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import models.Missao;
+import models.AmazonPrime;
 
 @Entity
 @Table(name="clientes_amazon")
@@ -23,6 +24,35 @@ public class Cliente implements Serializable {
     private Missao missao;
     private LocalDate dataMissao;
     private boolean statusUso = false;
+    @ManyToOne
+    @JoinColumn(name = "prime_id")
+    private AmazonPrime amazonPrime;
+    private LocalDate dataInscricaoPrime;
+    private LocalDate dataCancelamentoPrime;
+
+    public void setAmazonPrime(AmazonPrime amazonPrime){
+        this.amazonPrime = amazonPrime;
+    }
+
+    public AmazonPrime getAmazonPrime(){
+        return amazonPrime;
+    }
+
+    public void inscreverPrime(LocalDate dataInscricaoPrime){
+        this.dataInscricaoPrime = dataInscricaoPrime;
+    }
+
+    public void cancelarPrime(LocalDate dataCancelamentoPrime){
+        this.dataCancelamentoPrime = dataCancelamentoPrime;
+    }
+
+    public LocalDate getDataInscricaoPrime(){
+        return dataInscricaoPrime;
+    }
+
+    public LocalDate getDataCancelamentoPrime(){
+        return dataCancelamentoPrime;
+    }
 
     public LocalDate getDataMissao(){
         return dataMissao;
