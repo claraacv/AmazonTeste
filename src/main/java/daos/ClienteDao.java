@@ -27,5 +27,5 @@ public class ClienteDao extends dao{
 
     public Cliente getClienteById(long id){
         return em.find(Cliente.class, id);
-    }
+    };
 }

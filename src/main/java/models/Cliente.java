@@ -2,9 +2,14 @@ package models;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+
+import models.Missao;
+
 @Entity
 @Table(name="clientes_amazon")
-public class Cliente {
+public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -12,6 +17,30 @@ public class Cliente {
     private String nome;
     private String senha;
     private String segundaSenha;
+    @ManyToOne
+    @JoinColumn(name = "missao_id")
+    private Missao missao;
+    private LocalDate dataMissao;
+    private boolean statusUso = false;
+
+    public LocalDate getDataMissao(){
+        return dataMissao;
+    }
+
+    public void setDataMissao(LocalDate dataMissao){
+        this.dataMissao = dataMissao;
+    }
+
+    public boolean getStatusUso(){
+        return statusUso;
+    }
+    public Missao getMissao() {
+        return missao;
+    }
+
+    public void setMissao(Missao missao) {
+        this.missao = missao;
+    }
 
     public Cliente(String emailTelefone) {
         this.emailTelefone = emailTelefone;
@@ -19,6 +48,16 @@ public class Cliente {
 
     public Cliente() {
 
+    }
+
+    public void cadastrarMissao(Missao missao){
+        this.missao = missao;
+        dataMissao = LocalDate.now();
+        statusUso = true;
+    }
+
+    public void realizarMissao(){
+        statusUso = false;
     }
 
     public void setNome(String nome){
@@ -62,5 +101,9 @@ public class Cliente {
             return false;
         }
         return true;
+    }
+
+    public void setId(int i) {
+        this.id = id;
     }
 }
