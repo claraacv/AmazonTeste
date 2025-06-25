@@ -3,6 +3,8 @@ package controllers;
 import daos.ClienteDao;
 import models.Cliente;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,10 @@ public class ClienteController {
         } else{
             return false;
         }
+    }
+
+    public ClienteController(ClienteDao dao) {
+        this.dao = dao;
     }
 
     public boolean salvar(Cliente cliente) {
@@ -60,4 +66,19 @@ public class ClienteController {
     public List<Cliente> listar() {
         return dao.listar();
     }
+
+    public String recuperarSenha(String email, LocalDate dataSolicitacao, LocalDate dataRecuperacao){
+        Cliente cliente = dao.buscarPorEmail(email);
+        if (cliente == null){
+            return "Usuário não encontrado.";
+        }
+
+        long dias = ChronoUnit.DAYS.between(dataSolicitacao, dataRecuperacao);
+        if (dias > 1) {
+            return "Recuperação de senha expirada";
+        }
+
+        return "Senha recuperada com sucesso.";
+    }
+
 }
