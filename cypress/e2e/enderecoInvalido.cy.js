@@ -14,6 +14,8 @@ describe('Cadastro de Endereço na Amazon - CEP inválido', () => {
     cy.get('input[name="password"]', { timeout: 10000 }).should('be.visible').type('TestesUDESC3!', { log: false });
     cy.get('#signInSubmit').click();
 
+    cy.pause();
+
     //Aguarda estar logado e vai para os endereços
     cy.get('#nav-link-accountList', { timeout: 15000 }).click();
     cy.contains('Seus endereços', { timeout: 10000 }).click();
@@ -25,12 +27,14 @@ describe('Cadastro de Endereço na Amazon - CEP inválido', () => {
     cy.get('input[name="address-ui-widgets-enterAddressFullName"]').type('Thiago Schulze');
     cy.get('input[name="address-ui-widgets-enterAddressPostalCode"]').type('891500000');
 
-    //Aguarda algum sinal de erro ou não habilitação dos campos seguintes
-    cy.get('input[name="address-ui-widgets-enterAddressCity"]', { timeout: 15000 })
-        .should('be.disabled');
+    //Clica em "Salvar endereço"
+    cy.get('#address-ui-widgets-form-submit-button input[type="submit"]')
+        .should('be.visible')
+        .click();
 
-    //Validação visual de erro
-    cy.contains('Verifique o CEP digitado', { timeout: 10000 }).should('exist'); // se aparecer alguma mensagem
+    cy.get('.a-alert-content .a-section')
+        .should('be.visible')
+        .and('contain.text', 'Insira');
 
   });
 });

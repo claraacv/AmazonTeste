@@ -10,6 +10,9 @@ describe('Cadastro de telefone para notificações SMS na Amazon', () => {
     cy.get('input[name="password"]').type('TestesUDESC3!', { log: false });
     cy.get('#signInSubmit').click();
 
+    cy.pause();
+
+
     //Acessa o menu "Sua Conta"
     cy.get('#nav-link-accountList', { timeout: 10000 }).click();
 
