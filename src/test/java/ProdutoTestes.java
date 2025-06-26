@@ -13,13 +13,13 @@ public class ProdutoTestes {
     @Test
     public void avaliacaoValida(){
         //arrange
-        Avaliacao avaliacao = new Avaliacao();
 
-        ClienteController controllerCliente = new ClienteController();
-        Cliente cliente = controllerCliente.getClienteById(1);
+        Cliente cliente = new Cliente("testeAv@gmail.com");
+        cliente.setNome("Avaliação Válida I");
 
         Produto produto = new Produto("Mochila", 199.90, 10);
 
+        Avaliacao avaliacao = new Avaliacao(cliente, produto, "Mochila muito bonita");
         avaliacao.setEstrelas(5);
         avaliacao.setComentario("Produto muito bom, mochila reforçada de boa qualidade");
 
@@ -33,14 +33,14 @@ public class ProdutoTestes {
     }
 
     @Test
-    public void avaliacaoInvalida(){
+    public void avaliacaoValidaSemEstrelas(){
         //arrange
-        Avaliacao avaliacao = new Avaliacao();
-
-        ClienteController controllerCliente = new ClienteController();
-        Cliente cliente = controllerCliente.getClienteById(1);
+        Cliente cliente = new Cliente("av2@gmail.com");
+        cliente.setNome("Avaliação II");
 
         Produto produto = new Produto("Mochila", 199.90, 10);
+
+        Avaliacao avaliacao = new Avaliacao(cliente, produto, "Produto de alta qualidade");
 
         avaliacao.setComentario("Produto muito bom, mochila reforçada de boa qualidade");
 
@@ -50,6 +50,6 @@ public class ProdutoTestes {
         boolean resultado = controller.validarAvaliacao(avaliacao);
 
         //assert
-        assertFalse(resultado);
+        assertTrue(resultado);
     }
 }

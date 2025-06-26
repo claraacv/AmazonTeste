@@ -1,6 +1,7 @@
 package models;
 
 import daos.mockClienteDao;
+import mocks.CupomDaoMock;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,5 +61,25 @@ public class Compra {
             }
         }
         return 0;
+    }
+
+    public boolean validarCupomAmazon(String codigo){
+        if(cliente.getAmazonPrime() != null){
+            if(cliente.getDataInscricaoPrime().isBefore(data)){
+                if(cliente.getDataCancelamentoPrime()== null || cliente.getDataCancelamentoPrime().isAfter(data)|| cliente.getDataCancelamentoPrime().isEqual(data)){
+                    CupomDaoMock dao = new CupomDaoMock();
+                    List<Cupom> cupons = dao.getCupons();
+
+                    for(Cupom c: cupons){
+                        if(c.getCodigo().equals(codigo)){
+                            if(data.isBefore(c.getDataVencimento()) || data.isEqual(c.getDataVencimento())){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

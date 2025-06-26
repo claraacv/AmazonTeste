@@ -23,6 +23,7 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "missao_id")
     private Missao missao;
     private LocalDate dataMissao;
+    @Column(name = "status_uso")
     private boolean statusUso = false;
     @ManyToOne
     @JoinColumn(name = "prime_id")
@@ -69,9 +70,9 @@ public class Cliente implements Serializable {
         return missao;
     }
 
-    public void setMissao(Missao missao) {
-        this.missao = missao;
-    }
+//    public void setMissao(Missao missao) {
+//        this.missao = missao;
+//    }
 
     public Cliente(String emailTelefone) {
         this.emailTelefone = emailTelefone;

@@ -108,5 +108,25 @@ public class AmazonPrimeTestes {
         assertEquals("Pagamento não Autorizado! Verifique os dados de seu cartão.", resultado);
     }
 
+    @Test
+    public void cupomValidoMembroPrime(){
+        //arrange
+        Cliente cliente = new Cliente("ac.vanzuita@edu.udesc.br");
+        cliente.setNome("Ana Clara");
+        AmazonPrime amazon = new AmazonPrime(Planos.MENSAL, 24.90);
 
+        cliente.setAmazonPrime(amazon);
+        cliente.inscreverPrime(LocalDate.parse("2025-05-22"));
+
+        Produto produto = new Produto("Mochila", 150.99, 50);
+
+        Cupom cupom = new Cupom(1, "25Tudo", LocalDate.now().plusDays(7), 25);
+
+        Compra compra = new Compra(cliente, LocalDate.now());
+
+        //act
+        boolean resultado = compra.validarCupomAmazon("25Tudo");
+        //assert
+        assertTrue(resultado);
+    }
 }

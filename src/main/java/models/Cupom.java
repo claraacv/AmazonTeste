@@ -8,6 +8,10 @@ public class Cupom{
     private LocalDate dataVencimento;
     private double porcentagemDesconto;
 
+    public LocalDate getDataVencimento(){
+        return dataVencimento;
+    }
+
     public Cupom(int idCupom, String codigo, LocalDate dataVencimento, double porcentagemDesconto){
         this.idCupom = idCupom;
         this.codigo = codigo;
