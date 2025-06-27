@@ -1,3 +1,4 @@
+import controllers.AvaliacaoController;
 import controllers.ClienteController;
 import enums.Planos;
 import models.*;
@@ -52,7 +53,6 @@ public class AmazonPrimeTestes {
 
     @Test
     public void assinarAmazonPrimeComCartaoValido(){
-
         //Arrange
         Cliente cliente = new Cliente();
         AmazonPrime amazonPrime = new AmazonPrime("Cartão de Crédito", cliente);
@@ -71,7 +71,6 @@ public class AmazonPrimeTestes {
 
     @Test
     public void assinarAmazonPrimeComCartaoExpirado(){
-
         //Arrange
         Cliente cliente = new Cliente();
         AmazonPrime amazonPrime = new AmazonPrime("Cartão de Crédito", cliente);
@@ -91,7 +90,6 @@ public class AmazonPrimeTestes {
 
     @Test
     public void assinarAmazonPrimeComCodigoDeSegurancaInvalido(){
-
         //Arrange
         Cliente cliente = new Cliente();
         AmazonPrime amazonPrime = new AmazonPrime("Cartão de Crédito", cliente);
@@ -118,7 +116,7 @@ public class AmazonPrimeTestes {
         cliente.setAmazonPrime(amazon);
         cliente.inscreverPrime(LocalDate.parse("2025-05-22"));
 
-        Produto produto = new Produto("Mochila", 150.99, 50);
+        Produto produto = new Produto("Mochila", 150.99, 50, "Acessórios");
 
         Cupom cupom = new Cupom(1, "25Tudo", LocalDate.now().plusDays(7), 25);
 
