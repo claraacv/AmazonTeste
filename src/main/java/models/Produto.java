@@ -1,13 +1,11 @@
 package models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table
+@Table(name = "produto")
 public class Produto {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private double valor;
@@ -40,4 +38,15 @@ public class Produto {
     public double getValor() { return valor; }
     public int getQuantidadeEstoque() { return quantidadeEstoque; }
 
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public long getId() {
+        return id;
+    }
 }

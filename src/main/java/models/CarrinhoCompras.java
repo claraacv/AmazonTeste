@@ -40,4 +40,9 @@ public class CarrinhoCompras {
         valorTotal -= produto.getValor();
         return true;
     }
+
+    public Map<Produto, Integer> getItens() {
+        return java.util.Collections.unmodifiableMap(itens);
+    }
+
 }
