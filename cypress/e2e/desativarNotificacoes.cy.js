@@ -19,27 +19,26 @@ describe('Gerenciar notificações - Desativar e-mails promocionais', () => {
     //Vai para 'Preferências de Comunicação'
     cy.get('a[href*="/gp/cpc/homepage"]').contains('Preferências de comunicação').click();
 
-    //Vai para 'Preferências de E-mail'
-    cy.contains('Preferências de E-mail', { timeout: 10000 }).click();
-
-    // Expande a seção "E-mails promocionais"
+    //Expande
     cy.get('#marketingSettingsExpandImage', { timeout: 10000 })
         .should('be.visible')
+        .parent('a')
         .click();
 
-    // Espera a checkbox carregar e marca
+    //Espera a checkbox carregar e marca
     cy.contains('Não quero receber e-mails promocionais', { timeout: 10000 })
         .parents('label')
         .find('input[type="checkbox"]')
         .check({ force: true });
 
-    // Clica no botão "Atualizar"
-    cy.get('input[type="submit"][aria-labelledby*="update-marketing-preferences-button"]', { timeout: 10000 })
+    //Clica em Atualizar
+    cy.get('input[type="submit"][aria-labelledby="marketing-email-updateButton-announce"]', { timeout: 10000 })
         .should('be.visible')
         .click();
 
-    // Verifica se a mensagem de sucesso foi exibida
-        cy.contains('Suas preferências foram atualizadas', { timeout: 10000 })
-            .should('exist');
+    //Verifica se a mensagem de sucesso foi exibida
+    cy.get('#marketing-email-SuccessMessage', { timeout: 10000 })
+        .should('be.visible')
+        .and('contain', 'Suas configurações foram salvas.');
   });
 });
