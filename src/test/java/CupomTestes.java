@@ -22,7 +22,7 @@ public class CupomTestes {
     }
 
     @Test
-    public void deveValidarCupomComDataVencida() {
+    public void naoDeveValidarCupomComDataVencida() {
 
         //Arrange
         Cupom cupom = new Cupom(2, "PASCOA", LocalDate.of(2025, 4, 30), 0.10);

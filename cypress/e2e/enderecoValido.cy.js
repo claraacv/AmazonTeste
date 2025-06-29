@@ -25,34 +25,45 @@ describe('Cadastro de Endereço na Amazon', () => {
     cy.contains('Adicionar endereço', { timeout: 10000 }).click();
 
     //Preenche nome e CEP
-    cy.get('input[name="address-ui-widgets-enterAddressFullName"]').type('Thiago Schulze');
+    cy.get('input[name="address-ui-widgets-enterAddressFullName"]').clear().type('Thiago Schulze');
     cy.get('input[name="address-ui-widgets-enterAddressPostalCode"]').type('89150000');
 
-    //Aguarda o campo de cidade deixar de estar desabilitado (sinal de que carregou)
-    cy.get('input[name="address-ui-widgets-enterAddressCity"]', { timeout: 15000 })
-        .should('not.be.disabled');
+    cy.wait(3000);
+
+    //Preenche o telefone
+    cy.get('input[name="address-ui-widgets-enterAddressPhoneNumber"]')
+        .should('be.visible')
+        .type('47999998888');
+
+    cy.wait(1000);
 
     //Preenche o endereço
     cy.get('input[name="address-ui-widgets-streetName"]', { timeout: 10000 })
         .should('be.visible')
         .type('Rua do Thiago');
 
+    cy.wait(1000);
+
     //Preenche o número da residência
-        cy.get('input[name="address-ui-widgets-buildingNumber"]')
-            .should('be.visible')
-            .type('123');
+    cy.get('input[name="address-ui-widgets-buildingNumber"]')
+        .should('be.visible')
+        .type('123');
+
+    cy.wait(1000);
 
     //Preenche o bairro
-        cy.get('input[name="address-ui-widgets-neighborhood"]')
-            .should('be.visible')
-            .type('Centro');
+    cy.get('input[name="address-ui-widgets-neighborhood"]')
+        .should('be.visible')
+        .type('Centro');
+
+    cy.wait(1000);
 
     //Clica em "Salvar endereço"
-        cy.get('input[type="submit"][class="a-button-input"]')
-            .should('be.visible')
-            .click();
+    cy.get('#address-ui-widgets-form-submit-button input[type="submit"]')
+        .should('be.visible')
+        .click();
 
     //Valida se o endereço foi salvo
-    cy.contains('Gerenciar endereços de entrega', { timeout: 10000 }).should('exist');
+    cy.contains('Endereço salvo', { timeout: 10000 }).should('exist');
   });
 });

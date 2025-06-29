@@ -17,27 +17,29 @@ describe('Gerenciar notificações - Desativar e-mails promocionais', () => {
     cy.get('#nav-link-accountList', { timeout: 15000 }).click();
 
     //Vai para 'Preferências de Comunicação'
-    cy.contains('Preferências de Comunicação', { timeout: 10000 }).click();
+    cy.get('a[href*="/gp/cpc/homepage"]').contains('Preferências de comunicação').click();
 
     //Vai para 'Preferências de E-mail'
     cy.contains('Preferências de E-mail', { timeout: 10000 }).click();
 
-    //Expande E-mails promocionais
-    cy.contains('E-mails promocionais').click();
+    // Expande a seção "E-mails promocionais"
+    cy.get('#marketingSettingsExpandImage', { timeout: 10000 })
+        .should('be.visible')
+        .click();
 
-    //Espera carregar os departamentos
-    cy.contains('Você está recebendo e-mails de', { timeout: 10000 }).should('exist');
-
-    //Marca a checkbox "Não quero receber e-mails promocionais"
-    cy.contains('Não quero receber e-mails promocionais')
-        .parents('label') // Sobe para o <label> que envolve o texto e a checkbox
+    // Espera a checkbox carregar e marca
+    cy.contains('Não quero receber e-mails promocionais', { timeout: 10000 })
+        .parents('label')
         .find('input[type="checkbox"]')
         .check({ force: true });
 
-    //Clica em atualizar
-    cy.contains('Atualizar').click();
+    // Clica no botão "Atualizar"
+    cy.get('input[type="submit"][aria-labelledby*="update-marketing-preferences-button"]', { timeout: 10000 })
+        .should('be.visible')
+        .click();
 
-    //Verifica se mensagem de sucesso foi exibida
-    cy.contains('Suas preferências foram atualizadas').should('exist');
+    // Verifica se a mensagem de sucesso foi exibida
+        cy.contains('Suas preferências foram atualizadas', { timeout: 10000 })
+            .should('exist');
   });
 });
