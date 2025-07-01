@@ -14,9 +14,7 @@ describe('Cadastro de Endereço na Amazon', () => {
     //Preenche a senha e faz login
     cy.get('input[name="password"]', { timeout: 10000 }).should('be.visible').type('TestesUDESC3!', { log: false });
     cy.get('#signInSubmit').click();
-
-    cy.pause();
-
+    
     //Aguarda estar logado e vai para os endereços
     cy.get('#nav-link-accountList', { timeout: 15000 }).click();
     cy.contains('Seus endereços', { timeout: 10000 }).click();

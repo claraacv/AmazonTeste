@@ -11,8 +11,6 @@ describe('Gerenciar notificações - Desativar e-mails promocionais', () => {
     cy.get('input[name="password"]').should('be.visible').type('TestesUDESC3!', { log: false });
     cy.get('#signInSubmit').click();
 
-    cy.pause();
-
     //Vai para 'Sua Conta'
     cy.get('#nav-link-accountList', { timeout: 15000 }).click();
 
