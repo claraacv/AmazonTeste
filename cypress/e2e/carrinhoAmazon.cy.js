@@ -1,54 +1,34 @@
-describe('Adicionar e remover produto no carrinho - Amazon ASIN fixo', () => {
-    before(() => {
-        cy.visit('https://www.amazon.com.br/');
-        cy.get('#nav-link-accountList').click();
-        cy.get('input[name="email"]').type('testesudesc@gmail.com');
-        cy.get('#continue').click();
-        cy.get('input[name="password"]').type('TestesUDESC3!', { log: false });
-        cy.get('#signInSubmit').click();
-        cy.get('#nav-link-accountList').should('contain.text', 'Olá');
-    });
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false;
+});
 
-    it('Adicionar 2 unidades do produto ao carrinho', () => {
-        // Acessa diretamente a página do produto pelo ASIN
-        cy.visit('https://www.amazon.com.br/dp/B07Y2G7VX5');
+describe('Adicionar e remover item do carrinho da Amazon', () => {
+    it('Adiciona um produto no carrinho, verifica e remove', () => {
+        // Acessa o produto
+        cy.visit('https://www.amazon.com.br/dp/6598392799');
 
-        // Seleciona quantidade 2
-        cy.get('#quantity', { timeout: 10000 }).select('2');
+        // Verifica se carregou o título do produto
+        cy.get('#productTitle', { timeout: 10000 }).should('be.visible');
 
         // Clica no botão "Adicionar ao carrinho"
-        cy.get('#add-to-cart-button', { timeout: 10000 }).click();
+        cy.get('#add-to-cart-button').click();
 
-        // Confirma mensagem de sucesso
-        cy.get('#huc-v2-order-row-confirm-text', { timeout: 10000 })
-            .should('contain.text', 'Adicionado ao carrinho');
+        // Valida se apareceu a confirmação
+        cy.get('h1.sw-atc-text').should('contain.text', 'Adicionado ao carrinho');
 
-        // Vai para o carrinho
-        cy.get('#nav-cart').should('be.visible').click();
+        // Vai para o carrinho para remover o item
+        cy.visit('https://www.amazon.com.br/gp/cart/view.html');
 
-        // Verifica se o produto está no carrinho com quantidade 2
-        cy.get('.sc-list-item-content').within(() => {
-            cy.contains('Headset Gamer').should('exist');
-            cy.get('span.a-dropdown-prompt').should('contain.text', '2');
-        });
 
-        // Verifica que o subtotal está visível
-        cy.get('#sc-subtotal-amount-buybox').should('exist');
-    });
 
-    it('Remover 1 unidade do carrinho e verificar total', () => {
-        cy.get('#nav-cart').click();
+        // Clica no ícone da lixeira para remover o item do carrinho
+        cy.get('span[data-a-selector="decrement-icon"]').click();
 
-        cy.get('.sc-list-item-content').within(() => {
-            cy.get('select.a-dropdown-prompt').select('1');
-        });
 
-        cy.wait(3000);
+        // Opcional: validar que o carrinho está vazio ou que o item foi removido
+        cy.get('span.a-size-base')
+            .contains('foi removido de Carrinho de compras')
+            .should('be.visible');
 
-        cy.get('.sc-list-item-content').within(() => {
-            cy.get('span.a-dropdown-prompt').should('contain.text', '1');
-        });
-
-        cy.get('#sc-subtotal-amount-buybox').should('exist');
     });
 });

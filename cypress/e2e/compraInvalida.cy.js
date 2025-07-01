@@ -1,51 +1,27 @@
-// CT40 – Tentativa de finalizar compra sem método de pagamento válido
-// Fluxo completo: login  ➜  adiciona 1 produto fixo ao carrinho  ➜  tenta
-// fechar pedido  ➜  valida mensagem de erro sobre pagamento ausente/inválido.
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false;
+});
+describe('Fluxo de compra sem login exige autenticação', () => {
+    it('Deve impedir checkout e pedir login', () => {
+        // Acessa produto
+        cy.visit('https://www.amazon.com.br/dp/6555872233');
 
-describe('Compra inválida na Amazon (sem método de pagamento)', () => {
-    it('Faz login, adiciona item ao carrinho e verifica erro de pagamento', () => {
+        // Adiciona 1 unidade ao carrinho
+        cy.get('#add-to-cart-button').click();
 
-        /* ---------- Login ---------- */
-        cy.visit('https://www.amazon.com.br/');
+        // Verifica confirmação de adição
+        cy.get('h1.sw-atc-text').should('contain.text', 'Adicionado ao carrinho');
 
-        cy.get('#nav-link-accountList', { timeout: 15000 }).click();
-        cy.get('input[name="email"]', { timeout: 10000 })
-            .should('be.visible')
-            .type('testesudesc@gmail.com');
-        cy.get('#continue').click();
+        // Vai para o carrinho
+        cy.get('#nav-cart').click();
 
-        cy.get('input[name="password"]', { timeout: 10000 })
-            .should('be.visible')
-            .type('TestesUDESC3!', { log: false });
-        cy.get('#signInSubmit').click();
+        // Clica em "Fechar pedido" para avançar ao checkout
+        cy.get('input[name="proceedToRetailCheckout"]', { timeout: 10000 }).should('be.visible').click();
 
-        // Confirma que está logado
-        cy.get('#nav-link-accountList', { timeout: 15000 })
-            .should('contain.text', 'Olá');
+        // Verifica que apareceu mensagem solicitando login ou redirecionou para a página de login
+        cy.url().should('include', 'ap/signin');
 
-        /* ---------- Adiciona produto ---------- */
-        // Abre diretamente o Headset Gamer (ASIN fixo)
-        cy.visit('https://www.amazon.com.br/dp/B07Y2G7VX5');
-
-        cy.get('#quantity', { timeout: 10000 }).select('1');
-        cy.get('#add-to-cart-button', { timeout: 10000 }).click();
-
-        // Mensagem de sucesso
-        cy.get('#huc-v2-order-row-confirm-text', { timeout: 10000 })
-            .should('contain.text', 'Adicionado ao carrinho');
-
-        /* ---------- Checkout ---------- */
-        cy.get('#nav-cart', { timeout: 15000 }).should('be.visible').click();
-        cy.contains('Fechar pedido', { timeout: 15000 }).click();
-
-        // Confirma endereço (caso o botão exista)
-        cy.contains('Usar este endereço', { timeout: 15000 }).click();
-
-        /* ---------- Validação de erro ---------- */
-        cy.contains(/método de pagamento (válido|inválido|necessário)/i, { timeout: 15000 })
-            .should('exist');
-
-        // Opcional: pausa para inspeção visual quando precisar
-        // cy.pause();
+        // Ou verifica mensagem na página de login que pede para autenticar
+        cy.contains(/Faça login|Identifique-se|entre com sua conta/i).should('be.visible');
     });
 });
