@@ -24,7 +24,7 @@ public class Cliente implements Serializable {
     private Missao missao;
     private LocalDate dataMissao;
     @Column(name = "status_uso")
-    private boolean statusUso = false;
+    private Boolean statusUso = false;
     @ManyToOne
     @JoinColumn(name = "prime_id")
     private AmazonPrime amazonPrime;

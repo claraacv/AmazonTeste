@@ -80,8 +80,9 @@ public class ClienteTestes {
     public void naoSalvarCliente(){
         //arrange
         Cliente cliente = new Cliente("udesc@gmail.com");
+        cliente.setNome("Udesc");
         cliente.setSenha("udesc123");
-        cliente.setSegundaSenha("udesc123");
+        cliente.setSegundaSenha("udesc12");
 
         ClienteController controller = new ClienteController();
 
