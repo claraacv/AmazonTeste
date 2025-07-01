@@ -13,7 +13,7 @@ describe('Comentários inválidos', () => {
         cy.contains("Fazer login").should('exist');
     });
 
-    it('conta sem compras', () => {
+    it('comentário inválido - sem requisitos mínimos', () => {
         cy.visit('https://www.amazon.com.br/');
         cy.get('#nav-link-accountList').click();
         cy.get('input[name="email"]').type('testesudesc@gmail.com');
