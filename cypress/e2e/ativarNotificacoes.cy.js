@@ -26,8 +26,8 @@ describe('Gerenciar notificações - Ativar e-mails promocionais', () => {
         .click();
 
     //Espera a checkbox carregar e marca
-    cy.contains('Eletrônicos', { timeout: 10000 })
-        .parents('label')
+    cy.contains('span', 'Eletrônicos', { timeout: 10000 })
+        .closest('label')
         .find('input[type="checkbox"]')
         .check({ force: true });
 
