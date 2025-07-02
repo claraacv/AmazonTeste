@@ -62,6 +62,7 @@ public class ClienteTestes {
         cliente.setSegundaSenha("udesc123");
 
         ClienteController controller = new ClienteController();
+        List<Cliente> clientesAntes = controller.listar();
 
         //act
         boolean resultado = controller.salvar(cliente);
@@ -73,7 +74,7 @@ public class ClienteTestes {
 
         assertTrue("Cliente salvo",resultado);
 
-        assertEquals(1,clientes.size());
+        assertEquals( clientesAntes.size() + 1,clientes.size());
     }
 
     @Test
@@ -85,6 +86,7 @@ public class ClienteTestes {
         cliente.setSegundaSenha("udesc12");
 
         ClienteController controller = new ClienteController();
+        List<Cliente> clientesAntes = controller.listar();
 
         //act
         boolean resultado = controller.salvar(cliente);
@@ -95,7 +97,7 @@ public class ClienteTestes {
 
         assertNull(cliente.getId());
         //ver um assert pra verificar o valor que retornou da lista
-        assertEquals(1,clientes.size());
+        assertEquals(clientesAntes.size(),clientes.size());
     }
 
     @Test

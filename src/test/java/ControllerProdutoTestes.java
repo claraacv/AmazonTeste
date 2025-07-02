@@ -79,7 +79,7 @@ public class ControllerProdutoTestes {
     }
 
     @Test
-    //CT - julia
+    //CT - Julia
     public void testeAtualizarProduto() {
         Produto produto = new Produto("Teclado Mecânico", 400.0, 10, "Periféricos");
         controller.cadastrarProduto(produto);
