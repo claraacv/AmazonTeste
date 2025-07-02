@@ -10,16 +10,12 @@ describe('Adicionar e remover item do carrinho da Amazon', () => {
         // Verifica se carregou o título do produto
         cy.get('#productTitle', { timeout: 10000 }).should('be.visible');
 
-        // Clica no botão "Adicionar ao carrinho"
         cy.get('#add-to-cart-button').click();
 
-        // Valida se apareceu a confirmação
         cy.get('h1.sw-atc-text').should('contain.text', 'Adicionado ao carrinho');
 
         // Vai para o carrinho para remover o item
         cy.visit('https://www.amazon.com.br/gp/cart/view.html');
-
-
 
         // Clica no ícone da lixeira para remover o item do carrinho
         cy.get('span[data-a-selector="decrement-icon"]').click();

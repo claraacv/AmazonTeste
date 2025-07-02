@@ -1,5 +1,4 @@
-
-package controllers;
+import controllers.*;
 
 import enums.StatusCompra;
 import models.*;

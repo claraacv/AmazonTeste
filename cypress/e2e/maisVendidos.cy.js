@@ -10,6 +10,7 @@ describe('Acessa Mais Vendidos na Amazon', () => {
 
         cy.contains('a.hmenu-item', 'Mais Vendidos').click();
 
-        cy.get('h1').should('contain.text', 'Mais Vendidos');
+        cy.get('#zg_banner_text').should('contain.text', 'Mais vendidos');
+
     });
 });
