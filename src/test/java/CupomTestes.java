@@ -12,7 +12,7 @@ public class CupomTestes {
     public void deveValidarCupomComDataValida() {
 
         //Arrange
-        Cupom cupom = new Cupom(1, "JUNHO25", LocalDate.of(2025, 6, 30), 0.05);
+        Cupom cupom = new Cupom(1, "JUNHO25", LocalDate.now().plusMonths(1), 0.05);
 
         //Act
         boolean resultado = cupom.validarCupom();
