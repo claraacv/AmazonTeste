@@ -1,6 +1,6 @@
-package models;
-
 import static org.junit.jupiter.api.Assertions.*;
+import controllers.*;
+import models.*;
 
 import org.junit.jupiter.api.Test;
 
